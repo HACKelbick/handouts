@@ -8,12 +8,12 @@ library(httr)
 
 # define the api host, path and query
 
-host <- ...
+host <- api.census.gov
 path <- '/data/2015/acs5'
-query <- list(...,
-              ...,
-              ...)
-response <- ...(url = host, path = path, query = query)
+query <- list('get' = 'NAME, AIAHNN',
+              'for' = 'county',
+              'in' = 'state:24')
+response <- GET (url = host, path = path, query = query)
 
 # get a household income variable for tracts in MD
 ## http://api.census.gov/data/2015/acs5/variables/B19001_001E.json

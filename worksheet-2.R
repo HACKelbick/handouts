@@ -1,13 +1,17 @@
 ## The Editor
 
-vals <- ...
+vals <- seq (1,100)
+vals <- 1:100
+vals <- seq(from = 1,
+            to = 100)
+## all the above means the same thing#
 
-vals <- seq(...,
-            ...)
+## Vectors - need to all be in the same data type. All intergers, all symbols, ect.
 
-## Vectors
+counts <-c(4,6,8,12)
+counts <- c(4, 6, 8, 12, NA)
 
-counts ...
+
 
 ## Exercise 1
 
@@ -15,25 +19,38 @@ counts ...
 
 ## Factors
 
-education <- ...(c("college", "highschool", "college", "middle"),
-                 ... = c("middle", "highschool", ...))
+education <- factor(c("college", "highschool", "college", "middle"),
+                 levels = c("middle", "highschool", "college"))
 
-education <- ...(c("college", "highschool", "college", "middle"),
+str(education)
+
+education <- factor(c("college", "highschool", "college", "middle"),
                  levels = c("middle", "highschool", "college"),
-                 ...)
+                 ordered = TRUE)
+
+str(education)
 
 ## Data Frames
 
-... data.frame(...)
+df <- data.frame(education, counts)
 
 ## Exercise 2
 
-...
+species <- factor(c("shark", "owl", "llama", "owl"))
+
+counts <-c(4,55,8,12)
+
+data <- data.frame(species, counts)
+              
 
 ## Load data into R
 
-plots <- ...(...)
-animals <- ...(...)
+plots <- read.csv("../data/plots.csv")
+animals <- read.csv("../data/animals.csv")
+
+animals[3]
+
+df [df$counts]
 
 ## Exercise 3
 

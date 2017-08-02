@@ -10,3 +10,5 @@ git config --global user.email hcrad1@umd.edu
 ## Set the SESYNC-CI repository upstream and pull updates
 #git remote add upstream https://github.com/sesync-ci/handouts.git
 #git pull upstream master
+
+

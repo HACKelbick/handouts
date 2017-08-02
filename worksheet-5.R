@@ -1,66 +1,85 @@
 ## Getting started
 
 library(dplyr)
-library(...)
-animals <- read.csv(..., na.strings = '') %>%
+library(ggplot2)
+animals <- read.csv("data/animals.csv", na.strings = "") %>%
   filter(!is.na(species_id), !is.na(sex), !is.na(weight))
 
 ## Constructing layered graphics in ggplot
-
-ggplot(...,
-       ...) +
-  ...
+ggplot(data = animals,
+       aes(x = species_id, y = weight)) +
+  geom_point()
+#aes tells ggplot how you want to map the variables in the datafram - aesthetic mapping
+#geom_point = points! 
 
 ggplot(data = animals,
        aes(x = species_id, y = weight)) +
-  ...
+  geom_boxplot()
+#boxplots
 
 ggplot(data = animals,
        aes(x = species_id, y = weight)) +
-  geom_boxplot() ...
-  geom_point(...,
-             ...,
-             ...)
-
-ggplot(data = animals,
-       aes(x = species_id, y = weight, ...)) +
   geom_boxplot() +
-  geom_point(stat = 'summary',
-             fun.y = 'mean')
+  geom_point(stat = "summary",
+             fun.y = "mean",
+             color = "red")
+  #add mean, make it red!
+
+ggplot(data = animals,
+       aes(x = species_id, y = weight, color = species_id)) +
+  geom_boxplot() +
+  geom_point(stat = "summary",
+             fun.y = "mean",
+             by "sex")
+#RAINBOWS!
 
 ## Exercise 1
+animals_dm <- filter (animals, species_id == "DM")
+ggplot (data=animals_dm, aes(x=year, y=weight, color=sex))
+geom_line(stat = "summary",
+           fun.y = "mean")
 
-...
+#
+
+
 
 ## Adding a regression line
 
 levels(animals$sex) <- c('Female', 'Male')
-animals_dm <- filter(animals, ...)
-ggplot(...,
-       aes(x = year, y = weight)) +
-  geom_point(...,
-             size = 3,
-             stat = 'summary',
-             fun.y = 'mean') +
-  ...
-
+animals_dm <- filter(animals, species_id == 'DM')
 ggplot(data = animals_dm,
        aes(x = year, y = weight)) + 
   geom_point(aes(shape = sex),
              size = 3,
              stat = 'summary',
              fun.y = 'mean') +
-  geom_smooth(...)
+  geom_smooth(method = 'lm')
+#geom smooth is for a regression, geom line is just a line connecting the points
 
 ggplot(data = animals_dm,
-       aes(...,
-           ...,
-           ...) + 
+       aes(x = year,
+           y = weight,
+           color = sex)) + 
   geom_point(aes(shape = sex),
              size = 3,
-	           stat = 'summary',
-	           fun.y = 'mean') +
+             stat = 'summary',
+             fun.y = 'mean') +
   geom_smooth(method = 'lm')
+
+year_wgt <- ggplot(data = animals_dm,
+                   aes(x = year,
+                       y = weight,
+                       color = sex)) + 
+  geom_point(aes(shape = sex),
+             size = 3,
+             stat = "summary",
+             fun.y = "mean") +
+  geom_smooth(method = "lm")
+
+year_wgt +
+  scale_color_manual(values = c("darkblue", "orange"))
+
+year_wgt
 
 # Storing and re-plotting
 

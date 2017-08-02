@@ -10,30 +10,59 @@ response <- data.frame(
 
 library(tidyr)
 
-df <- gather(...)
+df <- gather(response, key = "factor", value = "respose", -trial)
 
 counts <- data.frame(
-  site = ...,
-  species = ...,
+  site = rep(1:3, each = 2),
+  species = rep(c("lynx", "hare"), 3),
   n = c(2, 341, 7, 42, 0, 289)
 )
 
-counts_spread <- ...(counts,
-			...,
-			...)
+#replicate site numbers 1-3, with each site happening twice = rep(1:3, each = 2),
+#replicate lynx and hare, so each site gets assigned lynx then hare = rep(c("lynx", "hare"), 3),
+#THEN assign numbers along that vector
+
+counts_spread <- spread(counts,
+                        key = species,
+                        value = n)
 
 ## Exercise 1
 
-...
+counts <- data.frame(
+  site = rep(1:3, each = 2),
+  species = rep(c("lynx", "hare"), 3),
+  n = c(2, 341, 7, 42, 0, 289)
+)
+
+counts2 <- counts [-5, ] # THIS pulls everything but the fifth row
+
+
+
+spread(counts2,key = species, value = n, fill = 0)
+
 
 ## Read comma-separated-value (CSV) files
 
-animals <- ...
 
-animals <- read.csv('data/animals.csv', )
+animals <- read.csv('data/animals.csv')
+
+#reading in blanks as an NA not as a string
+
+animals <- read.csv('data/animals.csv', na.strings = "")
 
 library(dplyr)
 library(...)
+
+animals_1990_winter <- animals_1990_winter <- filter (animals, year ==1990, month %in% 1:3)
+
+animals_1990_winter <- select(animals_1990_winter, -year)
+str(animals_1990_winter)
+
+sorted <- arrange(animals_1990_winter, desc(species_id), weight)
+#desc sorts by descending on that variable, so the species ID will be descending
+
+head(sorted)
+View(sorted)
 
 con <- ...(..., host = 'localhost', dbname = 'portal')
 animals_db <- ...
@@ -54,7 +83,11 @@ sorted <- ...(animals_1990_winter,
 
 ## Exercise 2
 
-...
+str(animals_ro)
+
+animals_ro2 <- select(animals_ro, id, sex, weight)
+
+animals_1990_winter <- select(animals_1990_winter, -year)
 
 ## Chainning with pipes
 
